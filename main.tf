@@ -1,14 +1,14 @@
 terraform {
   required_providers {
     docker = {
-        source = "test180720232207/docker"
+        source = "kreuzwerker/docker"
         version = "~> 3.0.1"
     }
   }
 }
 
 provider "docker" {
-    host = "npipe:///.//pipe//docker_engine"  
+    host = "npipe:////.//pipe//docker_engine"  
 }
 
 resource "docker_image" "nginx" {
@@ -17,7 +17,7 @@ resource "docker_image" "nginx" {
 }
 
 resource "docker_container" "nginx" {
-    image   = docker_engine.nginx.image_id
+    image   = docker_image.nginx.image_id
     name    = "tutorial"
     ports {
         internal = 80
